@@ -44,6 +44,19 @@ class TaskService extends BaseService
             $this->startCheckingJob($hosts);
         });
     }
+    
+    /**
+     * Make statistic for front
+     *
+     * @param Task $task
+     *
+     * @return int
+     *
+     */
+    public function getNumberOfCompleted(Task $task): int
+    {
+        return $task->hosts()->completed()->count();
+    }
 
     /**
      * Run new job for each hosts chunk
@@ -58,17 +71,5 @@ class TaskService extends BaseService
         ProcessCheckingProxies::dispatch($hosts);
     }
 
-    /**
-     * Make statistic for front
-     *
-     * @param Task $task
-     *
-     * @return [type]
-     *
-     */
-    public function getNumberOfCompleted(Task $task)
-    {
-        return $task->hosts()->completed()->count();
-    }
 
 }

@@ -25,7 +25,6 @@ class CheckingProxyService extends BaseService
     private function checkProxies($hosts)
     {
         // TODO - get multiple curl
-        //dd($hosts);
         collect($hosts)->each(fn ($item) => $this->checkSingleProxy($item));
     }
 

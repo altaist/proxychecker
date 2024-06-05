@@ -14,7 +14,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $taskService = TaskService::make();
+        return response()->json(['completed' => $taskService->getNumberOfCompleted()]);
     }
 
     /**
