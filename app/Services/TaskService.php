@@ -44,7 +44,7 @@ class TaskService extends BaseService
             $this->startCheckingJob($hosts);
         });
     }
-    
+
     /**
      * Make statistic for front
      *

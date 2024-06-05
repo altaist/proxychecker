@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\HostResource;
 use App\Http\Resources\TaskResource;
+use App\Models\Task;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $taskService = TaskService::make();
-        return response()->json(['completed' => $taskService->getNumberOfCompleted()]);
+        return (TaskResource::collection(Task::all()));
     }
 
     /**
@@ -31,16 +31,25 @@ class TaskController extends Controller
         $taskService = TaskService::make();
         $task = $taskService->saveTaskWithHosts($validated['hosts']);
 
-        $taskService->startCheckingHosts($task);
+        // $taskService->startCheckingHosts($task);
 
-        return (new TaskResource($task->hosts));
+        return (new TaskResource($task));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Task $task, Request $request)
     {
-        //
+        return (new TaskResource($task));
+    }
+
+    /**
+     * Get task with only completed hosts.
+     */
+    public function completed(Task $task, Request $request)
+    {
+        $taskService = TaskService::make();
+        return response()->json(['completed' => $taskService->getNumberOfCompleted($task)]);
     }
 }
