@@ -12,23 +12,24 @@
                 <div class="q-my-md">
                     <q-input label="Список адресов в формате ip:port" v-model="checkerManager.rawData.value" type="textarea" filled />
                 </div>
-                <div>
+                <div v-if="checkerManager.rawData.value">
                     <q-btn label="Проверить" @click="onSaveClick"></q-btn>
                 </div>
             </q-tab-panel>
 
             <q-tab-panel name="checking">
                 <div class="text-h6 q-mb-lg">Результаты проверки</div>
+                <div class="text-negative q-mb-md" v-if="checkerManager.error.value">{{ checkerManager.error.value }}</div>
                 <div v-if="checkerManager.task.value.hosts.length>0">
                     <q-list bordered separator>
                     <q-item clickable v-ripple v-for="host in checkerManager.task.value.hosts">
                         <q-item-section>{{ host.address }}</q-item-section>
                         <q-item-section v-if="host.info">{{ host.info }}</q-item-section>
                         <q-item-section v-if="!host.info && checkerManager.needReload()">
-                            <div><q-inner-loading :showing="true" label="Please wait..." label-class="text-teal" label-style="font-size: 1.1em" /></div>
+                            <div><q-inner-loading :showing="true" dense label-class="text-teal"  /></div>
                         </q-item-section>
                         <q-item-section v-if="!host.info && !checkerManager.needReload()">
-                            <div class="text-negative">checking error</div>
+                            <div class="text-negative text-subtitle1 text-right">error</div>
                         </q-item-section>
                     </q-item>
 
@@ -38,9 +39,7 @@
                     <div class="q-ma-xl ">
                         <div class="text-h6"> Нет адресов для проверки</div>
                         <div>Переключитесь на вкладку Редактор и введите адреса</div>
-
                     </div>
-
                 </div>
 
             </q-tab-panel>

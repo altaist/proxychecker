@@ -76,11 +76,10 @@ const useChecker = () => {
         try {
             loading.value = true;
             const result = await createTaskRequest(task.value);
-            console.log(result.data);
             task.value = result.data;
             checkingMode.value = true;
         } catch (error) {
-
+            showError(error?.response?.data?.message || 'Server error');
         } finally {
             loading.value = false;
         }
