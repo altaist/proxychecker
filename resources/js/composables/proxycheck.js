@@ -21,7 +21,7 @@ const fetchTasksHistoryRequest = () => {
 
 const useChecker = () => {
     const hosts = ref([]);
-    const rawData = ref("85.214.56.195:51802\n27.147.28.73:8080");
+    const rawData = ref("85.214.56.195:5180\n27.147.28.73:8080");
     const task = ref({ hosts: [] });
     const tasksHistory = ref([]);
     const loading = ref(false);

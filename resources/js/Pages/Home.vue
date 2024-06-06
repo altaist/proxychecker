@@ -8,7 +8,7 @@
 
         <q-tab-panels v-model="viewState" animated class="shadow-1 rounded-borders">
             <q-tab-panel name="edit">
-                <div class="text-h6 q-mb-lg">Список адресов для проверки</div>
+                <div class="text-h6 q-mb-lg">Редактор адресов для проверки</div>
                 <div class="q-my-md">
                     <q-input label="Список адресов в формате ip:port" v-model="checkerManager.rawData.value" type="textarea" filled />
                 </div>
@@ -19,7 +19,8 @@
 
             <q-tab-panel name="checking">
                 <div class="text-h6 q-mb-lg">Результаты проверки</div>
-                <q-list bordered separator>
+                <div v-if="checkerManager.task.value.hosts.length>0">
+                    <q-list bordered separator>
                     <q-item clickable v-ripple v-for="host in checkerManager.task.value.hosts">
                         <q-item-section>{{ host.address }}</q-item-section>
                         <q-item-section v-if="host.info">{{ host.info }}</q-item-section>
@@ -32,6 +33,16 @@
                     </q-item>
 
                 </q-list>
+                </div>
+                <div v-else>
+                    <div class="q-ma-xl ">
+                        <div class="text-h6"> Нет адресов для проверки</div>
+                        <div>Переключитесь на вкладку Редактор и введите адреса</div>
+
+                    </div>
+
+                </div>
+
             </q-tab-panel>
 
             <q-tab-panel name="history">
