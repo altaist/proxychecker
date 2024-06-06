@@ -17,7 +17,9 @@ class Host extends Model
     ];
 
     protected $casts = [
-        'info' => 'array'
+        'info' => 'array',
+        'created_at' => 'datetime:Y-m-d H:i',
+        'updated_at' => 'datetime:Y-m-d H:i',
     ];
 
     public function task() : BelongsTo
