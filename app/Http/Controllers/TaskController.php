@@ -15,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return (TaskResource::collection(Task::all()));
+        return (TaskResource::collection(Task::all()->sortByDesc('id')));
     }
 
     /**
@@ -31,7 +31,7 @@ class TaskController extends Controller
         $taskService = TaskService::make();
         $task = $taskService->saveTaskWithHosts($validated['hosts']);
 
-        // $taskService->startCheckingHosts($task);
+        $taskService->startCheckingHosts($task);
 
         return (new TaskResource($task));
     }

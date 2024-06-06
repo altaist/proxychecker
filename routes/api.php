@@ -11,6 +11,6 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/task', [TaskController::class, 'store'])->name('task.create');
 Route::get('/task', [TaskController::class, 'index'])->name('task.index');
-Route::get('/task/{id}', [TaskController::class, 'index'])->name('task.show');
-Route::get('/task/{id}/hosts/completed', [TaskController::class, 'completed'])->name('task.hosts.completed');
+Route::get('/task/{task}', [TaskController::class, 'show'])->name('task.show');
+Route::get('/task/{task}/hosts/completed', [TaskController::class, 'completed'])->name('task.hosts.completed');
 
